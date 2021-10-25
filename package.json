@@ -1,0 +1,30 @@
+{
+  "name": "odin-restaurant-page",
+  "version": "1.0.0",
+  "description": "Bare bones restaurant page",
+  "main": "index.js",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "webpack-dev-server --open",
+    "watch": "webpack --progress --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lunchboxer1/odin-restaurant-page.git"
+  },
+  "author": "e. parks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lunchboxer1/odin-restaurant-page/issues"
+  },
+  "homepage": "https://github.com/lunchboxer1/odin-restaurant-page#readme",
+  "devDependencies": {
+    "css-loader": "^6.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  }
+}
