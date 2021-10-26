@@ -2,69 +2,54 @@
 
 import './style/style.css';
 
-import home from "./page/home"
-import menu from './page/menu';
+import homePage from './page/home';
+import menuPage from './page/menu';
+import contactPage from './page/contact';
+
 import navComponent from './components/nav';
 
-//Main entry point
-console.log("hello World");
-initSite();
-
-/*Function Definitions*/
-function selectContent() {
+const index = (() => {
     //Select the content div to put the content into
     const content = document.querySelector('#content');
 
     //Add global styling
     content.classList.add('content');
 
-    return content;
-}
+    //Start building the page
+    const nav = navComponent(navHome, navMenu, navContact);
+    nav.activate();
+    content.appendChild(nav.getComponent());
 
-function initSite() {
-    
-    const content = selectContent();
+    const home = homePage();
+    home.activate();
+    content.appendChild(home.getPage());
 
-    content.appendChild(navComponent(navHome, navMenu, navContact));
+    const menu = menuPage();
+    menu.deactivate();
+    content.appendChild(menu.getPage());
 
-    //Build all the divs here.  THen toggle each to off (display: none, then when neccesary just turn on the appropriate div (dipslay: flex))
-    content.appendChild(home());
-}
+    const contact = contactPage();
+    contact.deactivate();
+    content.appendChild(contact.getPage());
 
-function renderPage(page) {
 
-    const content = selectContent();
-    
-    if (page === undefined) page = 'home';
-
-    console.log(page);
-    switch(page) {
-        case 'home':
-            //Logic to switch between the pages
-            content.appendChild(navComponent(navHome, navMenu, navContact));
-            content.appendChild(home());
-            break;
-        case 'menu':
-            //Logic to switch between the pages
-            content.appendChild(navComponent(navHome, navMenu, navContact));
-            content.appendChild(menu());
-            break;
+    //Menu Call back functions
+    function navHome() {
+        home.activate();
+        menu.deactivate();
+        contact.deactivate();
     }
-}
-
-function navHome() {
-    console.log('home');
-    renderPage('home');
-}
-
-function navMenu() {
-    console.log('Menu');
-    renderPage('menu');
-    //content.appendChild(menu());
-}
-
-function navContact() {
-    console.log('Contact');
-    renderPage();
-}
-
+    
+    function navMenu() {
+        home.deactivate();
+        menu.activate();
+        contact.deactivate();
+    }
+    
+    function navContact() {
+        home.deactivate();
+        menu.deactivate();
+        contact.activate();
+    }
+    
+})();

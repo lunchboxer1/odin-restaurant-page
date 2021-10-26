@@ -1,28 +1,27 @@
 import '../style/pageStyle.css';
 import headerImg from "../img/headerImg.jpg";
 
-const menuPage = () => {
+const contactPage = () => {
     let divPage;
     
-
-    /*Define the page here*/
+    //Page definition
     const buildPage = () => {
+        //Build the base element and add styling
         divPage = document.createElement('div');
         divPage.classList.add('page');
 
         divPage.appendChild(Object.assign(
-            document.createElement('h1'),
-            {textContent: "Menu Items"}));
-    
+                document.createElement('h3'),
+                {textContent: "Contact Information"}));
+        
         divPage.appendChild(Object.assign(
             document.createElement('p'),
-            {textContent: "Item 1: Fish Tacos"}));
+            {textContent: "Name: E. Parks"}));
 
         divPage.appendChild(Object.assign(
             document.createElement('p'),
-            {textContent: "Item 2: Shrimp Tacos"}));
+            {textContent: "Phone Num: (555) 555-555"}));
     }
-
 
     const getPage = () => {
         return divPage;
@@ -43,4 +42,4 @@ const menuPage = () => {
     return {getPage, activate, deactivate};
 }
 
-export default menuPage;
+export default contactPage;
