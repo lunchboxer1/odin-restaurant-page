@@ -1,55 +1,64 @@
-/*Houses and controls the logic and assigns the style of the whole site*/
-
 import './style/style.css';
+// import msgComponent from './comps/msg/msg';
+// import printMe from './comps/print/print';
+import navComponent from './comps/nav/nav';
+import homeComponent from './comps/home/home';
+import menuComponent from './comps/menu/menu';
+import contactComponent from './comps/contact/contact';
 
-import homePage from './page/home';
-import menuPage from './page/menu';
-import contactPage from './page/contact';
+const mainPage = () => {
+  let divComp;
+  const nav = navComponent();
+  const home = homeComponent();
+  const menu = menuComponent();
+  const contact = contactComponent();
 
-import navComponent from './components/nav';
-
-const index = (() => {
-    //Select the content div to put the content into
-    const content = document.querySelector('#content');
-
-    //Add global styling
-    content.classList.add('content');
-
-    //Start building the page
-    const nav = navComponent(navHome, navMenu, navContact);
-    nav.activate();
-    content.appendChild(nav.getComponent());
-
-    const home = homePage();
-    home.activate();
-    content.appendChild(home.getPage());
-
-    const menu = menuPage();
-    menu.deactivate();
-    content.appendChild(menu.getPage());
-
-    const contact = contactPage();
-    contact.deactivate();
-    content.appendChild(contact.getPage());
-
-
-    //Menu Call back functions
-    function navHome() {
+  const renderPage = (page) => {
+    switch (page) {
+      case 'home':
         home.activate();
         menu.deactivate();
         contact.deactivate();
-    }
-    
-    function navMenu() {
+        break;
+      case 'menu':
         home.deactivate();
         menu.activate();
         contact.deactivate();
-    }
-    
-    function navContact() {
+        break;
+      case 'contact':
         home.deactivate();
         menu.deactivate();
         contact.activate();
+        break;
+      default:
+        break;
     }
-    
-})();
+  };
+
+  const navCallback = (target) => {
+    renderPage(target);
+  };
+
+  const buildPage = () => {
+    divComp = document.createElement('div');
+
+    nav.initialize(navCallback, 'home', 'menu', 'contact');
+
+    divComp.appendChild(nav.getComponent());
+
+    divComp.appendChild(home.getComponent());
+    divComp.appendChild(menu.getComponent());
+    divComp.appendChild(contact.getComponent());
+
+    renderPage('home');
+  };
+
+  const getComponent = () => divComp;
+
+  buildPage();
+
+  return { getComponent };
+};
+
+const main = mainPage();
+document.body.appendChild(main.getComponent());
